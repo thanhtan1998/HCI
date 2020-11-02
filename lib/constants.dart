@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 //Theme color
@@ -13,4 +15,8 @@ const listProfile = [
   "Hỗ trợ"
 ];
 
+class Common {
+  List<int> selectedImg;
+}
 
+final common = Common();

@@ -8,6 +8,8 @@ import 'package:rentworker/components/rounded_button.dart';
 import 'package:rentworker/components/rounded_input_field.dart';
 import 'package:rentworker/constants.dart';
 
+import '../../constants.dart';
+
 class UploadImageDemo extends StatefulWidget {
   UploadImageDemo({Key key}) : super(key: key);
 
@@ -29,7 +31,9 @@ class UploadImageDemoState extends State<UploadImageDemo> {
 
   chooseImage() {
     setState(() {
-      file = ImagePicker.pickImage(source: ImageSource.gallery);
+      ImagePicker.pickImage(source: ImageSource.gallery).then((value) {
+        common.selectedImg = value.readAsBytesSync();
+      });
     });
     setStatus('');
   }
@@ -68,7 +72,7 @@ class UploadImageDemoState extends State<UploadImageDemo> {
         if (snapshot.connectionState == ConnectionState.done &&
             null != snapshot.data) {
           tmpFile = snapshot.data;
-          base64Image = base64Encode(snapshot.data.readAsBytesSync());
+          base64Image = base64Encode(common.selectedImg);
           return Flexible(
             child: Image.file(
               snapshot.data,
